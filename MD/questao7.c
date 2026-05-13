@@ -56,7 +56,7 @@ void questao7(int a, int b) {
 
     if (inverso == -1) {
         // Verifica se o inverso não existe (caso MDC(a, b) != 1)
-        printf("A congruencia nao possui inverso modular.\n");
+        printf("O inverso nao existe.\n");
     } else {
         // Se existir inverso modular, imprime o resultado
         printf("O inverso de %d mod %d é %d\n", a, b, inverso);
