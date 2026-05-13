@@ -43,12 +43,12 @@ int inverso_mod(int a, int b)
     return (x % b + b) % b;
 }
 
-int main() {
-    int a, b;
-    printf("a mod b\n");
-    printf("Digite a e b:\n");
+void questao7(int a, int b) {
+    // int a, b;
+    // printf("a mod b\n");
+    // printf("Digite a e b:\n");
 
-    scanf("%d %d", &a, &b);
+    // scanf("%d %d", &a, &b);
     // Lê os dois valores digitados pelo usuário e armazena em a e b
 
     int inverso = inverso_mod(a, b);
@@ -56,11 +56,10 @@ int main() {
 
     if (inverso == -1) {
         // Verifica se o inverso não existe (caso MDC(a, b) != 1)
-        printf("O inverso nao existe.\n");
+        printf("A congruencia nao possui inverso modular.\n");
     } else {
         // Se existir inverso modular, imprime o resultado
         printf("O inverso de %d mod %d é %d\n", a, b, inverso);
     }
 
-    return 0;
 }

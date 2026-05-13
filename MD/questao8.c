@@ -42,12 +42,12 @@ int inverso_mod(int a, int b)
     return (x % b + b) % b;
 }
 
-int main()
+void questao8(int a, int b, int m)
 {
-    int a, b, m;
-    printf("xa ≡ b mod m\n");
-    printf("Digite a, b e m:\n");
-    scanf("%d %d %d", &a, &b, &m);
+    // int a, b, m;
+    // printf("xa ≡ b mod m\n");
+    // printf("Digite a, b e m:\n");
+    // scanf("%d %d %d", &a, &b, &m);
     // Lê os valores de a, b e m
 
     int inverso = inverso_mod(a, m);
@@ -56,7 +56,7 @@ int main()
     if (inverso == -1)
     {
         // Se não existir inverso, não há solução única
-        printf("Não existe solução unica.\n");
+        printf("A congruencia nao possui inverso modular.\n");
     }
     else
     {
@@ -66,5 +66,4 @@ int main()
         printf("x ≡ %d (mod %d)\n", x, m);
     }
 
-    return 0;
 }
