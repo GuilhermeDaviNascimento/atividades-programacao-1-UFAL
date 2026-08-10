@@ -18,95 +18,207 @@ void bubble_sort(int array[], int inicio, int fim)
     }
 }
 
+
 void inserir(int array[], int size, int number)
 {
-    // Caso o novo número seja menor ou igual ao primeiro elemento válido do vetor.
-    // Nesse caso, ele será inserido na primeira posição livre (-1)
-    // e depois será ordenado até a posição correta.
-    if (array[0] != -1 && number <= array[0])
-    {
-        // Procura a primeira posição vazia.
-        for (int k = 1; k < size; k++)
-        {
-            if (array[k] == -1)
-            {
-                // Insere o número na posição vazia.
-                array[k] = number;
+    // caso o array inteiro esteja vazio
+    int vazio = 1;
 
-                // Ordena apenas o trecho necessário.
-                bubble_sort(array, 0, k);
+    for (int i = 0; i < size; i++)
+    {
+        if (array[i] != -1)
+        {
+            vazio = 0;
+            break;
+        }
+    }
+
+    if (vazio)
+    {
+        array[0] = number;
+        return;
+    }
+
+    // encontrar a primeira posição que não é -1
+    int primeiro = 0;
+
+    while (array[primeiro] == -1)
+    {
+        primeiro++;
+    }
+
+    // caso o novo número seja menor que o primeiro elemento valido
+    if (number <= array[primeiro])
+    {
+        if (primeiro > 0)
+        {
+            array[primeiro - 1] = number;
+        }
+        else
+        {
+            for (int k = primeiro + 1; k < size; k++)
+            {
+                if (array[k] == -1)
+                {
+                    array[k] = number;
+                    bubble_sort(array, primeiro, k);
+                    return;
+                }
+            }
+        }
+    }
+    else
+    {
+        for (int i = primeiro; i < size; i++)
+        {
+            if (array[i] != -1 && array[i] < number)
+            {
+                for (int j = i; j < size; j++)
+                {
+                    if (array[i] != -1 && array[j] > number)
+                    {
+                        for (int k = j; k > primeiro; k--)
+                        {
+                            if (array[k] == -1)
+                            {
+                                array[k] = number;
+                                bubble_sort(array, k, j);
+                                return;
+                            }
+                            else if (k - 1 > primeiro && array[k - 1] != -1)
+                            {
+                                for (int l = j; l < size; l++)
+                                {
+                                    if (array[l] == -1)
+                                    {
+                                        array[l] = number;
+                                        bubble_sort(array, j, l);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                        return;
+                    }
+
+                    // tratar quando não existir número maior
+                    else if (j + 1 == size)
+                    {
+                        for (int k = j; k > primeiro; k--)
+                        {
+                            if (array[k] == -1)
+                            {
+                                array[k] = number;
+                                bubble_sort(array, k, j);
+                                return; // CORREÇÃO
+                            }
+                        }
+                    }
+                }
+            }
+
+            break;
+        }
+    }
+}
+
+void remover(int array[], int size, int number)
+{
+    if(number < 0){
+        printf("Número inválido.\n");
+        return;
+    }
+    // conferir se o elemento esta no array
+    int achou = 0;
+    for (int i = 0; i < size; i++)
+    {
+        if (array[i] == number)
+        {
+            achou = 1;
+            break;
+        }
+    }
+    if (!achou)
+    {
+        printf("Elemento não encontrado no array.");
+    }
+    else
+    {
+        for (int i = 0; i < size; i++)
+        {
+            if (array[i] == number)
+            {
+                array[i] = -1;
                 break;
             }
         }
     }
-
-    // Percorre o vetor procurando um número menor que o valor a ser inserido.
-    for (int i = 0; i < size; i++)
-    {
-        if (array[i] != -1 && array[i] < number)
-        {
-            // A partir desse ponto, procura um elemento maior que o número.
-            for (int j = i; j < size; j++)
-            {
-                // Encontrou um número maior que o valor que será inserido.
-                if (array[i] != -1 && array[j] > number)
-                {
-                    // Procura uma posição vazia voltando de j até o início.
-                    for (int k = j; k > 0; k--)
-                    {
-                        if (array[k] == -1)
-                        {
-                            // Coloca o novo número na posição vazia.
-                            array[k] = number;
-
-                            // Ordena somente o intervalo onde ocorreu a inserção.
-                            bubble_sort(array, k, j);
-                            break;
-                        }
-                    }
-                    break;
-                }
-                // Caso tenha chegado ao final do vetor sem encontrar
-                // um elemento maior que o número.
-                // Isso significa que ele deve ser colocado no final
-                // da sequência ordenada.
-                else if (j + 1 == size)
-                {
-                    // Procura uma posição vazia voltando do final.
-                    for (int k = j; k > 0; k--)
-                    {
-                        if (array[k] == -1)
-                        {
-                            // Insere o número.
-                            array[k] = number;
-
-                            // Ordena apenas o trecho correspondente.
-                            bubble_sort(array, k, j);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        // Interrompe após a primeira iteração do laço externo.
-        break;
-    }
-
-    // Imprime o vetor após a tentativa de inserção.
-    for (int i = 0; i < size; i++)
-    {
-        printf("%d, ", array[i]);
-    }
-    printf("\n");
 }
 
 int main()
 {
-    int array[7] = {1, -1, -1, 5, -1, -1, 6};
+    int array[20] = {
+        -1, 2, -1, 5, -1, -1, 9, -1, 12, -1, -1, 15, -1, 16, -1, -1, 17, -1, 20, -1
+    };
+
     int size = sizeof(array) / sizeof(array[0]);
-    inserir(array, size, 2);
-    inserir(array, size, 9);
-    inserir(array, size, 3);
-    inserir(array, size, 0);
+    int opcao;
+    int number;
+
+    do
+    {
+        printf("\n============================\n");
+        printf("        MENU PRINCIPAL\n");
+        printf("============================\n");
+        printf("1 - Inserir número\n");
+        printf("2 - Remover número\n");
+        printf("0 - Sair\n");
+        printf("============================\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+
+        switch (opcao)
+        {
+            case 1:
+                printf("\nDigite o número para inserir: ");
+                scanf("%d", &number);
+
+                inserir(array, size, number);
+
+                printf("\nArray após a inserção:\n");
+                for (int i = 0; i < size; i++)
+                {
+                    printf("%d ", array[i]);
+                }
+                printf("\n");
+
+                break;
+
+            case 2:
+                printf("\nDigite o número para remover: ");
+                scanf("%d", &number);
+
+                remover(array, size, number);
+
+                printf("\nArray após a remoção:\n");
+                for (int i = 0; i < size; i++)
+                {
+                    printf("%d ", array[i]);
+                }
+                printf("\n");
+
+                break;
+
+            case 0:
+                printf("\nPrograma encerrado.\n");
+                break;
+
+            default:
+                printf("\nOpção inválida! Escolha 0, 1 ou 2.\n");
+                break;
+        }
+
+    } while (opcao != 0);
+
+    return 0;
 }
