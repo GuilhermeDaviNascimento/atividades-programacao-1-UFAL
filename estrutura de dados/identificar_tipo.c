@@ -5,7 +5,6 @@ void identificar(char numero[]){
     //strlen(numero) retorna o tamanho da string
     for (int i = 0; i < strlen(numero); i++)
     {
-        printf("entrou");
         if(numero[i] == '.'){
         printf("real\n");
         return;
