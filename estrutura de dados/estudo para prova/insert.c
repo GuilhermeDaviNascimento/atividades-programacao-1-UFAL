@@ -1,23 +1,32 @@
 #include <stdio.h>
 
-int main(){
+int main()
+{
     int list[5] = {5, 4, 2, 1, 3};
-    int size = sizeof(list)/sizeof(list[0]);
-    for (int i = 0; i < size; i++)
+    int size = sizeof(list) / sizeof(list[0]);
+    for (int i = 1; i < size; i++)
     {
-        for (int j = 0; j < size; j++)
-            {
-                if(list[i] < list[j]){
-                    int temp = list[i];
-                    list[i] = list[j];
-                    list[j] = temp;
-                }
-            }
+        int chave = list[i];
+        int j = i - 1;
+
+        while (j >= 0 && list[j] > chave)
+        {
+            list[j + 1] = list[j];
+            j--;
+        }
+
+        list[j + 1] = chave;
     }
 
     for (int i = 0; i < size; i++)
     {
-        printf("%d \n", list[i]);
+        printf("%d, ", list[i]);
     }
-    
+    printf("\n");
 }
+
+// for (int i = 0; i < size; i++)
+// {
+//     printf("%d, ", list[i]);
+// }
+// printf("\n");
