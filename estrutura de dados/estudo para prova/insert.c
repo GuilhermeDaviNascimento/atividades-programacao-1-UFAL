@@ -9,7 +9,7 @@ int main()
         int chave = list[i];
         int j = i - 1;
 
-        while (j >= 0 && list[j] > chave)
+        while (j >= 0 && list[j] < chave)
         {
             list[j + 1] = list[j];
             j--;

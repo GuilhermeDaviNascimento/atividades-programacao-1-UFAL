@@ -1,16 +1,35 @@
 #include <stdio.h>
 
-int main (){
-    int list[5] = {5, 4, 2, 1, 3};
-    int size = sizeof(list)/sizeof(list[0]);
+int main()
+{
+    int lista[5] = {5, 4, 2, 1, 3};
+    int n = sizeof(lista) / sizeof(lista[0]);
 
-    for (size_t i = 0; i < size; i++)
+    for (size_t i = 0; i < n; i++)
     {
-        int start = 0;
-        for (size_t j = 0; j < size; j++)
+
+        int menor = lista[i];
+        int menor_indice = i;
+        for (size_t j = i + 1; j < n; j++)
+        {
+            if (lista[j] < menor )
             {
-                if(list[start] > )
+                menor = lista[j];
+                menor_indice = j;
             }
+        }
+
+        if(menor_indice != i){
+            int temp = lista[i];
+            lista[i] = menor;
+            lista[menor_indice] = temp;
+        }
+
     }
-    
+
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d, ", lista[i]);
+    }
+    printf("\n");
 }
