@@ -1,9 +1,9 @@
 n = int(input())
-for i in range(n):
-        rodadas = list(map(int, input().split()))
-        if rodadas[2] >= rodadas[1]:
-            print("S" * sum(rodadas))
-        elif rodadas[1] >= rodadas[2]:
-            print("R" * sum(rodadas))
-        else:
-            print("P" * sum(rodadas))
+for _ in range(n):
+     x, y, z = map(int, input().split())
+     if y >= z:
+          print("R" * (x + y  + z) )
+     elif x >= y:
+          print("P" * (x + y  + z) )
+     else:
+          print("S" * (x + y  + z) )
